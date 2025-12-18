@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIWEI.UZ - Anime Dunyosi</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 class="logo">🎌 KIWEI.UZ</h1>
+                    <p class="tagline">Anime Dunyosiga Xush Kelibsiz!</p>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button id="exportBtn" class="admin-btn" title="Export JSON">⬇️ Export</button>
+                    <button id="adminBtn" class="admin-btn">🔐 Admin</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Admin Tanlang</h2>
+            <div id="adminList" class="admin-list">
+                <!-- Adminlar bu yerga joylashadi -->
+            </div>
+            <hr style="margin: 14px 0; border: none; border-top: 1px solid #334155;">
+            <h3>Janrlarni boshqarish</h3>
+            <div id="genreList" style="margin-bottom:10px;">
+                <!-- genrelar -->
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+                <input id="newGenreName" placeholder="Yangi janr nomi" style="flex:1; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:#e2e8f0;">
+                <button id="addGenreBtn" class="submit-btn" style="width:140px;">Janr Qo'shish</button>
+            </div>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+            <div id="newAdminForm" style="display: none;">
+                <h3>Yangi Admin Qo'shish</h3>
+                <div class="form-group">
+                    <label for="newAdminName">Admin Nomi:</label>
+                    <input type="text" id="newAdminName" placeholder="Admin nomini kiriting">
+                </div>
+                <div class="form-group">
+                    <label for="newAdminPassword">Parol:</label>
+                    <input type="password" id="newAdminPassword" placeholder="Parol kiriting">
+                </div>
+                <button id="addAdminBtn" class="submit-btn" style="margin-bottom: 10px;">Admin Qo'shish</button>
+            </div>
+            <button id="toggleAdminFormBtn" class="submit-btn" style="background: #667eea;">➕ Yangi Admin Qo'shish</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container" id="genreNav">
+            <!-- Genres and filters will be rendered here by JS -->
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <input type="text" id="searchInput" class="search-box" placeholder="Anime qidirish...">
+            <button id="addAnimeBtn" class="add-btn" style="display: none;">➕ Anime Qo'shish</button>
+        </div>
+    </section>
+
+    <!-- Top Watched -->
+    <section id="topWatchedSection" class="top-watched">
+        <div class="container">
+            <h3 class="section-title">Eng ko'p tomosha qilinganlar</h3>
+            <div id="topWatched" class="top-watched-list"></div>
+        </div>
+    </section>
+
+    <!-- Anime Grid -->
+    <section class="anime-container">
+        <div id="animeGrid" class="anime-grid">
+            <!-- Animeler bu yerga joylashadi -->
+        </div>
+    </section>
+
+    <!-- Add Anime Modal -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Yangi Anime Qo'shish</h2>
+            <form id="addAnimeForm">
+                <div class="form-group">
+                    <label for="animeName">Anime Nomi:</label>
+                    <input type="text" id="animeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="animeGenre">Janr:</label>
+                    <select id="animeGenre" required>
+                        <option value="">Tanlang</option>
+                        <option value="action">Aksion</option>
+                        <option value="drama">Drama</option>
+                        <option value="comedy">Komediya</option>
+                        <option value="romance">Romantika</option>
+                        <option value="fantasy">Fantastika</option>
+                        <option value="other">Boshqa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="animeYear">Yil:</label>
+                    <input type="number" id="animeYear" min="1990" max="2099">
+                </div>
+                <div class="form-group">
+                    <label for="animeImage">Rasm URL-i:</label>
+                    <input type="url" id="animeImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="animeDescription">Tavsifi:</label>
+                    <textarea id="animeDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="animeRating">Reyting (1-10):</label>
+                    <input type="number" id="animeRating" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="animeLink">Tomosha Qilish Linki:</label>
+                    <input type="url" id="animeLink" placeholder="https://example.com/watch">
+                </div>
+                <div class="form-group">
+                    <label for="telegramLink">Telegram Kanal Linki:</label>
+                    <input type="url" id="telegramLink" placeholder="https://t.me/yourchannel">
+                </div>
+                <button type="submit" class="submit-btn">Saqlash</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content large">
+            <span class="close">&times;</span>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 KIWEI.UZ - Anime Dunyosi. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
